@@ -63,9 +63,9 @@ const UpdateService = () => {
     }
     return (
         <div className="max-w-xl mx-auto p-4">
-      <div className="bg-gradient-to-r from-amber-300 to-yellow-400 p-[2px] rounded-2xl shadow-lg">
+      <div className=" bg-gradient-to-r from-sky-500 via-blue-500 to-indigo-500 p-[2px] rounded-2xl shadow-lg">
         <form onSubmit={handleUpdate} className="bg-white rounded-2xl p-6 space-y-4">
-          <h2 className="text-2xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-amber-600 to-yellow-500">
+          <h2 className="text-2xl font-bold text-center bg-clip-text text-transparent  bg-gradient-to-r from-sky-500 via-blue-500 to-indigo-500">
            Update Listing 
           </h2>
 
@@ -77,14 +77,14 @@ const UpdateService = () => {
               type="text"
               name="name"
               placeholder="Enter name"
-              className="w-full mt-1 p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-amber-300 focus:outline-none text-sm"
+              className="w-full mt-1 p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-sky-600 focus:outline-none text-sm"
             />
           </div>
 
           {/* Category */}
           <div>
             <label className="font-medium text-sm">Category</label>
-            <select value={category} onChange={(e)=>setCategory(e.target.value)}  name="category" required className="w-full mt-1 p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-amber-300 focus:outline-none text-sm">
+            <select value={category} onChange={(e)=>setCategory(e.target.value)}  name="category" required className="w-full mt-1 p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-sky-600 focus:outline-none text-sm">
               <option value="Pets">Pets</option>
               <option value="Food">Food</option>
               <option value="Accessories">Accessories</option>
@@ -100,7 +100,7 @@ const UpdateService = () => {
               type="number"
               name="price"
               placeholder="0.00"
-              className="w-full mt-1 p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-amber-300 focus:outline-none text-sm"
+              className="w-full mt-1 p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-sky-600 focus:outline-none text-sm"
             />
           </div>
 
@@ -112,7 +112,7 @@ const UpdateService = () => {
               type="text"
               name="location"
               placeholder="City or area"
-              className="w-full mt-1 p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-amber-300 focus:outline-none text-sm"
+              className="w-full mt-1 p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-sky-600 focus:outline-none text-sm"
             />
           </div>
 
@@ -124,7 +124,7 @@ const UpdateService = () => {
               defaultValue={service?.description}
               name="description"
               placeholder="Write details..."
-              className="w-full mt-1 p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-amber-300 focus:outline-none text-sm"
+              className="w-full mt-1 p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-sky-600 focus:outline-none text-sm"
             ></textarea>
           </div>
 
@@ -136,7 +136,7 @@ const UpdateService = () => {
               type="url"
               name="imageUrl"
               placeholder="https://example.com/image.jpg"
-              className="w-full mt-1 p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-amber-300 focus:outline-none text-sm"
+              className="w-full mt-1 p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-sky-600 focus:outline-none text-sm"
             />
           </div>
 
@@ -147,7 +147,7 @@ const UpdateService = () => {
               defaultValue={service?.date}
               type="date"
               name="date"
-              className="w-full mt-1 p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-amber-300 focus:outline-none text-sm"
+              className="w-full mt-1 p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-sky-600 focus:outline-none text-sm"
             />
           </div>
 
@@ -167,7 +167,7 @@ const UpdateService = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full py-2.5 rounded-lg text-white font-semibold bg-gradient-to-r from-amber-600 to-yellow-500 hover:opacity-90 transition text-sm"
+            className="w-full py-2.5 rounded-lg text-white font-semibold  bg-gradient-to-r from-sky-500 via-blue-500 to-indigo-500 hover:opacity-90 transition text-sm"
           >
            Update
           </button>

@@ -1,117 +1,107 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
-import { Link } from "react-router";
-import axios from "axios";
-import Swal from "sweetalert2";
+import { updateProfile } from "firebase/auth";
+import auth from "../firebase/firebase.config";
 
-const MyServices = () => {
-  const [myServices, setMyServices] = useState([]);
-  const { user } = useContext(AuthContext);
+const Profile = () => {
+  const { setUser, user } = useContext(AuthContext);
 
-  useEffect(() => {
-    fetch(`http://localhost:3000/my-services?email=${user?.email}`) //when use query parameter
-      .then((res) => res.json())
-      .then((data) => {
-        setMyServices(data);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpenForm = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    const fullName = e.target.fullName.value;
+    const photoURL = e.target.photoURL.value;
+
+    updateProfile(auth.currentUser, {
+      displayName: fullName,
+      photoURL: photoURL,
+    })
+      .then(() => {
+        setUser({ ...user, photoURL: photoURL, displayName: fullName });
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error);
       });
-  }, [user?.email]);
-  console.log(myServices);
-
-  // for delete service
-  const handleDelete = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .delete(`http://localhost:3000/delete/${id}`)
-          .then((res) => {
-            console.log(res.data);
-            if (res.data.deletedCount == 1) {
-              const filterData = myServices.filter(
-                (service) => service?._id != id
-              );
-              console.log(filterData);
-              setMyServices(filterData);
-
-              Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success",
-              });
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    });
   };
 
   return (
-    <div>
-      My Services
-      <div className="overflow-x-auto">
-        <table className="table">
-          {/* head */}
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Price</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* row 1 */}
-            {myServices.map((service) => (
-              <tr>
-                <td>
-                  <div className="flex items-center gap-3">
-                    <div className="avatar">
-                      <div className="mask mask-squircle h-12 w-12">
-                        <img
-                          src={service?.imageUrl}
-                          alt="Avatar Tailwind CSS Component"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <div className="font-bold">{service?.name}</div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <p>{service?.description}</p>
-                </td>
-                <td>{service?.price}</td>
-                <td className="flex gap-3">
-                  <button
-                    onClick={() => handleDelete(service?._id)}
-                    className="btn btn-error btn-xs"
-                  >
-                    Delete
-                  </button>
-                  <Link to={`/UpdateServices/${service?._id}`}>
-                    <button className="btn btn-primary btn-xs">Edit</button>
-                  </Link>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div className="min-h-screen flex justify-center items-center p-6 bg-gray-50">
+      <div className="max-w-xl w-full bg-white shadow-2xl rounded-2xl p-8 text-center">
+
+        {/* Profile Image */}
+        <img
+          src={user?.photoURL}
+          alt="Profile"
+          className="w-32 h-32 mx-auto rounded-full border-4 border-blue-500 shadow-lg"
+        />
+
+        {/* Name */}
+        <h2 className="mt-4 text-3xl font-bold 
+        bg-gradient-to-r from-sky-500 via-blue-500 to-indigo-500 
+        bg-clip-text text-transparent">
+          {user?.displayName}
+        </h2>
+
+        {/* Email */}
+        <p className="text-gray-600 mt-1">{user?.email}</p>
+
+        {/* Update Button */}
+        <button
+          onClick={handleOpenForm}
+          className="mt-6 px-6 py-2 font-semibold text-white rounded-lg
+           bg-gradient-to-r from-sky-500 via-blue-500 to-indigo-500
+           hover:opacity-90 transition-all duration-300 shadow-md hover:shadow-lg"
+        >
+          Update Profile
+        </button>
+
+        {isOpen && (
+          <div className="items-center">
+            <form onSubmit={handleUpdate} className="mt-10 space-y-4 text-left">
+
+              <div>
+                <label className="font-semibold">Name</label>
+                <input
+                  type="text"
+                  name="fullName"
+                  className="w-full p-3 rounded-lg border bg-gray-50 
+                  focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  placeholder="Your Name"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="font-semibold">Photo URL</label>
+                <input
+                  type="text"
+                  name="photoURL"
+                  className="w-full p-3 rounded-lg border bg-gray-50 
+                  focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  placeholder="Your PhotoURL"
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="w-full py-3 font-semibold text-white rounded-lg
+                 bg-gradient-to-r from-sky-500 via-blue-500 to-indigo-500
+                 hover:opacity-90 transition-all duration-300 shadow-md hover:shadow-xl"
+              >
+                Save Changes
+              </button>
+            </form>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default MyServices;
+export default Profile;
