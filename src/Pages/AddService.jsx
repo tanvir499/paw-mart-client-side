@@ -31,7 +31,7 @@ const AddService = () => {
     };
 
     axios
-      .post("http://localhost:3000/services", formData)
+      .post("https://paw-mart-server-side-seven.vercel.app/services", formData)
       .then((res) => {
         if (res.data.acknowledged) {
           Swal.fire({

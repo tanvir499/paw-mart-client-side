@@ -4,13 +4,13 @@ import React, { useEffect, useState } from "react";
 const MyOrders = () => {
   const [myOrders, setMyOrders] = useState([]);
 
-  // Define the common theme colors
+ 
   const THEME_GRADIENT_BG = "bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-600";
   const THEME_TEXT_GRADIENT = "bg-clip-text text-transparent bg-gradient-to-r from-sky-600 via-blue-700 to-indigo-800";
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/orders")
+      .get("https://paw-mart-server-side-seven.vercel.app/orders")
       .then((res) => {
         setMyOrders(res.data);
       })
@@ -18,9 +18,9 @@ const MyOrders = () => {
         console.log(err);
       });
   }, []);
-  // console.log(myOrders); // Keeping the console log in your original location
+  // console.log(myOrders); 
 
-  // Helper function to format the date
+ 
   const formatOrderDate = (dateString) => {
     if (!dateString) return "N/A";
     return new Date(dateString).toLocaleDateString('en-US', {

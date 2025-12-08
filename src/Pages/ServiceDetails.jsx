@@ -19,7 +19,7 @@ const ServiceDetails = () => {
 
     useEffect(() => {
         // Fetch Service Details
-        fetch(`http://localhost:3000/services/${myId}`)
+        fetch(`https://paw-mart-server-side-seven.vercel.app/services/${myId}`)
             .then((res) => {
                 if (!res.ok) throw new Error("Failed to fetch service data");
                 return res.json();
@@ -60,7 +60,7 @@ const ServiceDetails = () => {
         };
 
         axios
-            .post("http://localhost:3000/orders", formData)
+            .post("https://paw-mart-server-side-seven.vercel.app/orders", formData)
             .then((res) => {
                 console.log(res);
                 toast.success("Ordered successfully!", {
